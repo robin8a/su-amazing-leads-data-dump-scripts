@@ -12,13 +12,13 @@ export data_dump_path=$conf_data_dump_path
 
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Today date: $data_dump_today_date" >> $REC_LOG_FILE
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Scripts path: $scripts_path" >> $REC_LOG_FILE
-echo "$(date +"%m-%d-%Y %H:%M:%S"): Video path: $data_dump_path" >> $REC_LOG_FILE
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Data dump path: $data_dump_path" >> $REC_LOG_FILE
 
 # Checking if date folde exists? to dump data
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Checking folders ..." >> $REC_LOG_FILE
-if [ ! -d "$video_path$data_dump_today_date" ]; then
+if [ ! -d "$data_dump_path$data_dump_today_date" ]; then
     echo "$(date +"%m-%d-%Y %H:%M:%S"): Creating today's directory $rec_today_date" >> $REC_LOG_FILE
-	mkdir "$video_path$rec_today_date"
+	mkdir "$data_dump_path$rec_today_date"
 else 
 	echo "$(date +"%m-%d-%Y %H:%M:%S"): The directory $rec_today_date already exist!" >> $REC_LOG_FILE
 fi
