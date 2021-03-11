@@ -17,8 +17,8 @@ echo "$(date +"%m-%d-%Y %H:%M:%S"): Data dump path: $data_dump_path" >> $REC_LOG
 # Checking if date folde exists? to dump data
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Checking folders ..." >> $REC_LOG_FILE
 if [ ! -d "$data_dump_path$data_dump_today_date" ]; then
-    echo "$(date +"%m-%d-%Y %H:%M:%S"): Creating today's directory $rec_today_date" >> $REC_LOG_FILE
-	mkdir "$data_dump_path$rec_today_date"
+    echo "$(date +"%m-%d-%Y %H:%M:%S"): Creating today's directory $data_dump_today_date" >> $REC_LOG_FILE
+	mkdir "$data_dump_path$data_dump_today_date"
 else 
 	echo "$(date +"%m-%d-%Y %H:%M:%S"): The directory $rec_today_date already exist!" >> $REC_LOG_FILE
 fi
