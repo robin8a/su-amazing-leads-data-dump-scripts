@@ -30,5 +30,5 @@ aws dynamodb scan \
     --query "Items[*].[id.S, __typename.S, createdAt.S, optionID.S, questionID.S, questionaryInteractionID.S, updatedAt.S]" \
     --filter-expression 'begins_with(createdAt, :val)' \
     --expression-attribute-values '{":val": {"S": "2021-02-12"}}' \
-    --output text > "$data_dump_path$data_dump_today_date"$data_dump_today_date_QuestionAnswerDataDump.tsv
+    --output text > "$data_dump_path$data_dump_today_date$data_dump_today_date_"QuestionAnswerDataDump.tsv
 
