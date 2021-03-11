@@ -3,7 +3,7 @@ from google.cloud import storage
 4
 # Setting credentials using the downloaded JSON file
 5
-client = storage.Client.from_service_account_json(json_credentials_path='credentials-python-storage.json')
+client = storage.Client.from_service_account_json(json_credentials_path='kio-sl-emap-4efaa41838cd.json')
 6
 7
 # Creating bucket object
