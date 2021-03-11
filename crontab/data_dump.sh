@@ -24,3 +24,11 @@ else
 fi
 # Iniciando grabacion cam1
 # $scripts_path/011_cam_1_start_recording.sh &
+
+aws dynamodb scan \
+    --table-name QuestionAnswer-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
+    --query "Items[*].[id.S, __typename.S, createdAt.S, optionID.S, questionID.S, questionaryInteractionID.S, updatedAt.S]" \
+    --filter-expression 'begins_with(createdAt, :val)' \
+    --expression-attribute-values '{":val": {"S": "2021-02-12"}}' \
+    --output text > QuestionAnswerDataDump_$data_dump_today_date.tsv
+
