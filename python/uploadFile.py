@@ -8,7 +8,7 @@ client = storage.Client.from_service_account_json(json_credentials_path='kio-sl-
 7
 # Creating bucket object
 8
-bucket = client.get_bucket('py-python')
+bucket = client.get_bucket('su-amazing-leads')
 9
 10
 # Name of the object to be stored in the bucket
