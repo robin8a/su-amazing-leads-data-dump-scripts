@@ -3,10 +3,10 @@
 . /home/ec2-user/su-amazing-leads-data-dump-scripts/conf/conf.properties
 
 # Variable load to global use in other scripts
-export REC_LOG_FILE=$conf_logs_path"data_dump_"$(date +%d-%m-%Y)".log"
+export REC_LOG_FILE=$conf_logs_path"data_dump_"$(date +%Y-%m-%d)".log"
 echo "$(date +"%m-%d-%Y %H:%M:%S"): #####" >> $REC_LOG_FILE
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Log data dump start" >> $REC_LOG_FILE
-export data_dump_today_date=$(date +"%d-%m-%Y")
+export data_dump_today_date=$(date +"+%Y-%m-%d")
 export scripts_path=$conf_scripts_path
 export data_dump_path=$conf_data_dump_path
 
@@ -29,6 +29,6 @@ aws dynamodb scan \
     --table-name QuestionAnswer-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
     --query "Items[*].[id.S, __typename.S, createdAt.S, optionID.S, questionID.S, questionaryInteractionID.S, updatedAt.S]" \
     --filter-expression 'begins_with(createdAt, :val)' \
-    --expression-attribute-values '{":val": {"S": "2021-02-12"}}' \
+    --expression-attribute-values '{":val": {"S": "$data_dump_today_date"}}' \
     --output text > "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_$data_dump_today_date.csv
 
