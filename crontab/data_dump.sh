@@ -23,8 +23,9 @@ if [ ! -d "$data_dump_path$data_dump_today_date" ]; then
 else 
 	echo "$(date +"%m-%d-%Y %H:%M:%S"): The directory $rec_today_date already exist!" >> $REC_LOG_FILE
 fi
-# Iniciando grabacion cam1
-# $scripts_path/011_cam_1_start_recording.sh &
+# Data dump
+
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Starting Data Dump ..." >> $REC_LOG_FILE
 
 aws dynamodb scan \
     --table-name QuestionAnswer-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
@@ -33,4 +34,14 @@ aws dynamodb scan \
     --expression-attribute-values '{":val": {"S": "$data_dump_today_date"}}' \
     --output text > "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_$data_dump_today_date.tsv
 
+aws dynamodb scan \
+    --table-name QuestionAnswer-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
+    --query "Items[*].[id.S, __typename.S, createdAt.S, optionID.S, questionID.S, questionaryInteractionID.S, updatedAt.S]" \
+    --filter-expression 'begins_with(createdAt, :val)' \
+    --expression-attribute-values '{":val": {"S": "2021-03-16"}}' \
+    --output text > "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_test.tsv
+
+echo "$(date +"%m-%d-%Y %H:%M:%S"): QuestionAnswer table Data Dumped ..." >> $REC_LOG_FILE
+
 echo "$(date +"%m-%d-%Y %H:%M:%S"): #####" >> $REC_LOG_FILE
+
