@@ -3,10 +3,10 @@
 . /home/ec2-user/su-amazing-leads-data-dump-scripts/conf/conf.properties
 
 # Variable load to global use in other scripts
-export REC_LOG_FILE=$conf_logs_path"data_dump_"$(date +%Y-%m-%d)".log"
+export REC_LOG_FILE=$conf_logs_path"data_dump_"$(date %Y-%m-%d)".log"
 echo "$(date +"%m-%d-%Y %H:%M:%S"): #####" >> $REC_LOG_FILE
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Log data dump start" >> $REC_LOG_FILE
-export data_dump_today_date=$(date +"+%Y-%m-%d")
+export data_dump_today_date=$(date "+%Y-%m-%d")
 export scripts_path=$conf_scripts_path
 export data_dump_path=$conf_data_dump_path
 
