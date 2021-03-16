@@ -27,6 +27,7 @@ fi
 
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Starting Data Dump ..." >> $REC_LOG_FILE
 
+## QuestionAnswer
 aws dynamodb scan \
     --table-name QuestionAnswer-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
     --query "Items[*].[id.S, __typename.S, createdAt.S, optionID.S, questionID.S, questionaryInteractionID.S, updatedAt.S]" \
@@ -40,6 +41,33 @@ echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: QuestionAnswer .
 tr '\t' ',' < "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_$data_dump_today_date.csv
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: QuestionAnswer" >> $REC_LOG_FILE
 
+## QuestionAnswer
+aws dynamodb scan \
+    --table-name QuestionAnswer-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
+    --query "Items[*].[id.S, __typename.S, createdAt.S, optionID.S, questionID.S, questionaryInteractionID.S, updatedAt.S]" \
+    --filter-expression 'begins_with(createdAt, :val)' \
+    --expression-attribute-values '{":val": {"S": "'$data_dump_today_date'"}}' \
+    --output text > "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_$data_dump_today_date.tsv
+
+echo "$(date +"%m-%d-%Y %H:%M:%S"): QuestionAnswer table Data Dumped ..." >> $REC_LOG_FILE
+
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: QuestionAnswer ..." >> $REC_LOG_FILE
+tr '\t' ',' < "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_$data_dump_today_date.csv
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: QuestionAnswer" >> $REC_LOG_FILE
+
+## QuestionaryInteraction
+aws dynamodb scan \
+    --table-name QuestionaryInteraction-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
+    --query "Items[*].[id.S, __typename.S, browser.S, clientID.S, createdAt.S, ip.S, isBrowser.BOOL, isMobile.BOOL, questionaryEndTime.N, questionaryID.S, questionaryStartTime.N, state_0.N, state_1.N, state_2.N, updatedAt.S, utm.s]" \
+    --filter-expression 'begins_with(createdAt, :val)' \
+    --expression-attribute-values '{":val": {"S": "'$data_dump_today_date'"}}' \
+    --output text > "$data_dump_path$data_dump_today_date/"QuestionaryInteractionDataDump_$data_dump_today_date.tsv
+    
+echo "$(date +"%m-%d-%Y %H:%M:%S"): QuestionaryInteraction table Data Dumped ..." >> $REC_LOG_FILE
+
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: QuestionaryInteraction ..." >> $REC_LOG_FILE
+tr '\t' ',' < "$data_dump_path$data_dump_today_date/"QuestionaryInteractionDataDump_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"QuestionaryInteractionDataDump_$data_dump_today_date.csv
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: QuestionaryInteraction" >> $REC_LOG_FILE
 
 
 echo "$(date +"%m-%d-%Y %H:%M:%S"): #####" >> $REC_LOG_FILE
