@@ -31,15 +31,15 @@ aws dynamodb scan \
     --table-name QuestionAnswer-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
     --query "Items[*].[id.S, __typename.S, createdAt.S, optionID.S, questionID.S, questionaryInteractionID.S, updatedAt.S]" \
     --filter-expression 'begins_with(createdAt, :val)' \
-    --expression-attribute-values '{":val": {"S": "$data_dump_today_date"}}' \
+    --expression-attribute-values '{":val": {"S": "'$data_dump_today_date'"}}' \
     --output text > "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_$data_dump_today_date.tsv
 
-aws dynamodb scan \
-    --table-name QuestionAnswer-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
-    --query "Items[*].[id.S, __typename.S, createdAt.S, optionID.S, questionID.S, questionaryInteractionID.S, updatedAt.S]" \
-    --filter-expression 'begins_with(createdAt, :val)' \
-    --expression-attribute-values '{":val": {"S": "2021-03-16"}}' \
-    --output text > "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_test.tsv
+# aws dynamodb scan \
+#     --table-name QuestionAnswer-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
+#     --query "Items[*].[id.S, __typename.S, createdAt.S, optionID.S, questionID.S, questionaryInteractionID.S, updatedAt.S]" \
+#     --filter-expression 'begins_with(createdAt, :val)' \
+#     --expression-attribute-values '{":val": {"S": "2021-03-16"}}' \
+#     --output text > "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_test.tsv
 
 echo "$(date +"%m-%d-%Y %H:%M:%S"): QuestionAnswer table Data Dumped ..." >> $REC_LOG_FILE
 
