@@ -83,6 +83,9 @@ echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: Interaction ..."
 tr '\t' ',' < "$data_dump_path$data_dump_today_date/"InteractionDataDump_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"InteractionDataDump_$data_dump_today_date.csv
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: Interaction" >> $REC_LOG_FILE
 
+## Uploading the complete daily data dump folder
+
+gsutil -m cp -r "$data_dump_path$data_dump_today_date" gs://su-amazing-leads/
 
 echo "$(date +"%m-%d-%Y %H:%M:%S"): #####" >> $REC_LOG_FILE
 
