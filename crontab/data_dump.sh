@@ -48,11 +48,37 @@ aws dynamodb scan \
     --query "Items[*].[id.S, orderNumber.N, questionID.S, title.S]" \
     --output text > "$data_dump_path$data_dump_today_date/"iff002_santander_options_$data_dump_today_date.tsv
 
-echo "$(date +"%m-%d-%Y %H:%M:%S"): Interaction table Data Dumped ..." >> $REC_LOG_FILE
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Option table Data Dumped ..." >> $REC_LOG_FILE
 
-echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: Interaction ..." >> $REC_LOG_FILE
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: Option ..." >> $REC_LOG_FILE
 tr '\t' ',' < "$data_dump_path$data_dump_today_date/"iff002_santander_options_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"iff002_santander_options_$data_dump_today_date.csv
-echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: Interaction" >> $REC_LOG_FILE
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: Option" >> $REC_LOG_FILE
+
+## QuestionaryInteraction
+aws dynamodb scan \
+    --table-name QuestionaryInteraction-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
+    --query "Items[*].[id.S, __typename.S, browser.S, clientID.S, createdAt.S, ip.S, isBrowser.BOOL, isMobile.BOOL, questionaryEndTime.N, questionaryID.S, questionaryStartTime.N, state_0.N, state_1.N, state_2.N, updatedAt.S, utm.s]" \
+    --filter-expression 'begins_with(createdAt, :val)' \
+    --expression-attribute-values '{":val": {"S": "'$data_dump_today_date'"}}' \
+    --output text > "$data_dump_path$data_dump_today_date/"iff003_santander_questionary_interaction_$data_dump_today_date.tsv
+    
+echo "$(date +"%m-%d-%Y %H:%M:%S"): QuestionaryInteraction table Data Dumped ..." >> $REC_LOG_FILE
+
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: QuestionaryInteraction ..." >> $REC_LOG_FILE
+tr '\t' ',' < "$data_dump_path$data_dump_today_date/"iff003_santander_questionary_interaction_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"iff003_santander_questionary_interaction_$data_dump_today_date.csv
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: QuestionaryInteraction" >> $REC_LOG_FILE
+
+## Question
+aws dynamodb scan \
+    --table-name Question-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
+    --query "Items[*].[id.S, isEnable.BOOL, orderNumber.N, question.S, questionaryID.S]" \
+    --output text > "$data_dump_path$data_dump_today_date/"iff004_santander_questions_$data_dump_today_date.tsv
+    
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Question table Data Dumped ..." >> $REC_LOG_FILE
+
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: Question ..." >> $REC_LOG_FILE
+tr '\t' ',' < "$data_dump_path$data_dump_today_date/"iff004_santander_questions_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"iff004_santander_questions_$data_dump_today_date.csv
+echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: Question" >> $REC_LOG_FILE
 
 
 ## QuestionAnswer
@@ -61,27 +87,13 @@ aws dynamodb scan \
     --query "Items[*].[id.S, __typename.S, createdAt.S, optionID.S, questionID.S, questionaryInteractionID.S, updatedAt.S]" \
     --filter-expression 'begins_with(createdAt, :val)' \
     --expression-attribute-values '{":val": {"S": "'$data_dump_today_date'"}}' \
-    --output text > "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_$data_dump_today_date.tsv
+    --output text > "$data_dump_path$data_dump_today_date/"iff005_santander_question_answer_$data_dump_today_date.tsv
 
 echo "$(date +"%m-%d-%Y %H:%M:%S"): QuestionAnswer table Data Dumped ..." >> $REC_LOG_FILE
 
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: QuestionAnswer ..." >> $REC_LOG_FILE
-tr '\t' ',' < "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"QuestionAnswerDataDump_$data_dump_today_date.csv
+tr '\t' ',' < "$data_dump_path$data_dump_today_date/"iff005_santander_question_answer_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"iff005_santander_question_answer_$data_dump_today_date.csv
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: QuestionAnswer" >> $REC_LOG_FILE
-
-## QuestionaryInteraction
-aws dynamodb scan \
-    --table-name QuestionaryInteraction-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
-    --query "Items[*].[id.S, __typename.S, browser.S, clientID.S, createdAt.S, ip.S, isBrowser.BOOL, isMobile.BOOL, questionaryEndTime.N, questionaryID.S, questionaryStartTime.N, state_0.N, state_1.N, state_2.N, updatedAt.S, utm.s]" \
-    --filter-expression 'begins_with(createdAt, :val)' \
-    --expression-attribute-values '{":val": {"S": "'$data_dump_today_date'"}}' \
-    --output text > "$data_dump_path$data_dump_today_date/"QuestionaryInteractionDataDump_$data_dump_today_date.tsv
-    
-echo "$(date +"%m-%d-%Y %H:%M:%S"): QuestionaryInteraction table Data Dumped ..." >> $REC_LOG_FILE
-
-echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: QuestionaryInteraction ..." >> $REC_LOG_FILE
-tr '\t' ',' < "$data_dump_path$data_dump_today_date/"QuestionaryInteractionDataDump_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"QuestionaryInteractionDataDump_$data_dump_today_date.csv
-echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: QuestionaryInteraction" >> $REC_LOG_FILE
 
 
 ## Uploading the complete daily data dump folder
