@@ -98,7 +98,7 @@ echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: QuestionAnswer" >> $
 
 ## Uploading the complete daily data dump folder
 
-gsutil -m cp -r "$data_dump_path$data_dump_today_date" gs://su-amazing-leads/
+gsutil -m cp -r "$data_dump_path$data_dump_today_date" gs://santander_inbox/amazing_leads
 
 echo "$(date +"%m-%d-%Y %H:%M:%S"): #####" >> $REC_LOG_FILE
 
