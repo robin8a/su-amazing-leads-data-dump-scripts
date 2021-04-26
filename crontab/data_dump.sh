@@ -8,7 +8,10 @@ export REC_LOG_FILE=$conf_logs_path"data_dump_"$(date +%Y%m%d%H%M%S)".log"
 
 echo "$(date +"%m-%d-%Y %H:%M:%S"): #####" >> $REC_LOG_FILE
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Log data dump start" >> $REC_LOG_FILE
-export data_dump_today_date=$(date +"%Y%m%d%H%M%S")
+export backup_start_date=`date +"%Y-%m-%d"`
+
+# export data_dump_today_date=$(date +"%Y%m%d%H%M%S")
+export data_dump_today_date=`date -d "$backup_start_date" +"%Y%m%d%H%M%S"`
 export scripts_path=$conf_scripts_path
 export data_dump_path=$conf_data_dump_path
 
