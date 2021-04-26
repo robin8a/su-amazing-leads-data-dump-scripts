@@ -6,10 +6,8 @@ param_data_dump_start_date=$1
 
 # Variable load to global use in other scripts
 # date +%Y-%m-%d-%H-%M-%S
-export REC_LOG_FILE=$conf_logs_path"data_dump_"$(date +%Y%m%d%H%M%S)".log"
+export REC_LOG_FILE=$conf_logs_path"data_dump_"$(date +%Y%m%d)".log"
 export backup_start_date=`date -d "$param_data_dump_start_date" +"%Y-%m-%d"`
-
-export path_video_cam=$backup_video_path`date -d "$backup_start_date" +"%d-%m-%Y"`/$backup_cam_num
 
 echo "$(date +"%m-%d-%Y %H:%M:%S"): #####" >> $REC_LOG_FILE
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Log data dump start" >> $REC_LOG_FILE
