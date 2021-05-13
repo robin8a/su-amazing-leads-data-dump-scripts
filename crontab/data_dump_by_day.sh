@@ -45,6 +45,15 @@ echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: Interaction ..."
 tr '\t' ',' < "$data_dump_path$data_dump_today_date/"iff001_santander_interactions_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"iff001_santander_interactions_$data_dump_today_date.csv
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: Interaction" >> $REC_LOG_FILE
 
+if [ -s "$data_dump_path$data_dump_today_date/"iff001_santander_interactions_$data_dump_today_date.csv ]
+then
+        gsutil -m cp -r "$data_dump_path$data_dump_today_date/"iff001_santander_interactions_$data_dump_today_date.csv gs://santander_inbox/amazing_leads/detailed_interaction
+else
+        echo "$(date +"%m-%d-%Y %H:%M:%S"): The file iff001_santander_interactions is empty" >> $REC_LOG_FILE
+fi
+
+
+
 ## Option
 aws dynamodb scan \
     --table-name Option-mexfa73ymfc6rmlwqmt6vu4vf4-suamaleapi \
@@ -56,6 +65,8 @@ echo "$(date +"%m-%d-%Y %H:%M:%S"): Option table Data Dumped ..." >> $REC_LOG_FI
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: Option ..." >> $REC_LOG_FILE
 tr '\t' ',' < "$data_dump_path$data_dump_today_date/"iff002_santander_options_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"iff002_santander_options_$data_dump_today_date.csv
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: Option" >> $REC_LOG_FILE
+
+gsutil -m cp -r "$data_dump_path$data_dump_today_date/"iff002_santander_options_$data_dump_today_date.csv gs://santander_inbox/amazing_leads/options_data
 
 ## QuestionaryInteraction
 aws dynamodb scan \
@@ -70,6 +81,8 @@ echo "$(date +"%m-%d-%Y %H:%M:%S"): QuestionaryInteraction table Data Dumped ...
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: QuestionaryInteraction ..." >> $REC_LOG_FILE
 tr '\t' ',' < "$data_dump_path$data_dump_today_date/"iff003_santander_questionary_interaction_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"iff003_santander_questionary_interaction_$data_dump_today_date.csv
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: QuestionaryInteraction" >> $REC_LOG_FILE
+
+gsutil -m cp -r "$data_dump_path$data_dump_today_date/"iff003_santander_questionary_interaction_$data_dump_today_date.csv gs://santander_inbox/amazing_leads/questionnaire_interaction
 
 ## Question
 aws dynamodb scan \

@@ -92,3 +92,4 @@
 ./data_dump_by_day.sh "2021-05-02"
 ./data_dump_by_day.sh "2021-05-03"
 ./data_dump_by_day.sh "2021-05-04"
+./data_dump_by_day.sh "2021-05-05"
