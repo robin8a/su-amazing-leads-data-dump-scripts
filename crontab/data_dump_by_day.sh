@@ -1,6 +1,6 @@
 #!/bin/bash
 # .properties file
-. /home/ec2-user/su-amazing-leads-data-dump-scripts/conf/conf.properties
+. /home/ubuntu/su-amazing-leads-data-dump-scripts/conf/conf.properties
 # argument variables
 param_data_dump_start_date=$1
 
