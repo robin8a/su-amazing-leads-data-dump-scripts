@@ -66,7 +66,13 @@ echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: Option ..." >> $
 tr '\t' ',' < "$data_dump_path$data_dump_today_date/"iff002_santander_options_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"iff002_santander_options_$data_dump_today_date.csv
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: Option" >> $REC_LOG_FILE
 
-gsutil -m cp -r "$data_dump_path$data_dump_today_date/"iff002_santander_options_$data_dump_today_date.csv gs://santander_inbox/amazing_leads/options_data
+if [ -s "$data_dump_path$data_dump_today_date/"iff002_santander_options_$data_dump_today_date.csv ]
+then
+        gsutil -m cp -r "$data_dump_path$data_dump_today_date/"iff002_santander_options_$data_dump_today_date.csv gs://santander_inbox/amazing_leads/options_data
+else
+        echo "$(date +"%m-%d-%Y %H:%M:%S"): The file iff001_santander_interactions is empty" >> $REC_LOG_FILE
+fi
+
 
 ## QuestionaryInteraction
 aws dynamodb scan \
@@ -82,7 +88,13 @@ echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: QuestionaryInter
 tr '\t' ',' < "$data_dump_path$data_dump_today_date/"iff003_santander_questionary_interaction_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"iff003_santander_questionary_interaction_$data_dump_today_date.csv
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: QuestionaryInteraction" >> $REC_LOG_FILE
 
-gsutil -m cp -r "$data_dump_path$data_dump_today_date/"iff003_santander_questionary_interaction_$data_dump_today_date.csv gs://santander_inbox/amazing_leads/questionnaire_interaction
+if [ -s "$data_dump_path$data_dump_today_date/"iff003_santander_questionary_interaction_$data_dump_today_date.csv ]
+then
+        gsutil -m cp -r "$data_dump_path$data_dump_today_date/"iff003_santander_questionary_interaction_$data_dump_today_date.csv gs://santander_inbox/amazing_leads/questionnaire_interaction
+else
+        echo "$(date +"%m-%d-%Y %H:%M:%S"): The file iff001_santander_interactions is empty" >> $REC_LOG_FILE
+fi
+
 
 ## Question
 aws dynamodb scan \
@@ -95,6 +107,14 @@ echo "$(date +"%m-%d-%Y %H:%M:%S"): Question table Data Dumped ..." >> $REC_LOG_
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: Question ..." >> $REC_LOG_FILE
 tr '\t' ',' < "$data_dump_path$data_dump_today_date/"iff004_santander_questions_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"iff004_santander_questions_$data_dump_today_date.csv
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: Question" >> $REC_LOG_FILE
+
+
+if [ -s "$data_dump_path$data_dump_today_date/"iff004_santander_questions_$data_dump_today_date.csv ]
+then
+    gsutil -m cp -r "$data_dump_path$data_dump_today_date/"iff004_santander_questions_$data_dump_today_date.csv gs://santander_inbox/amazing_leads/questions
+else
+    echo "$(date +"%m-%d-%Y %H:%M:%S"): The file iff001_santander_interactions is empty" >> $REC_LOG_FILE
+fi
 
 
 ## QuestionAnswer
@@ -111,10 +131,16 @@ echo "$(date +"%m-%d-%Y %H:%M:%S"): Conveting tsv to csv table: QuestionAnswer .
 tr '\t' ',' < "$data_dump_path$data_dump_today_date/"iff005_santander_question_answer_$data_dump_today_date.tsv > "$data_dump_path$data_dump_today_date/"iff005_santander_question_answer_$data_dump_today_date.csv
 echo "$(date +"%m-%d-%Y %H:%M:%S"): Converted to csv table: QuestionAnswer" >> $REC_LOG_FILE
 
+if [ -s "$data_dump_path$data_dump_today_date/"iff005_santander_question_answer_$data_dump_today_date.csv ]
+then
+    gsutil -m cp -r "$data_dump_path$data_dump_today_date/"iff005_santander_question_answer_$data_dump_today_date.csv gs://santander_inbox/amazing_leads/question_answers
+else
+    echo "$(date +"%m-%d-%Y %H:%M:%S"): The file iff001_santander_interactions is empty" >> $REC_LOG_FILE
+fi
 
-## Uploading the complete daily data dump folder
+# ## Uploading the complete daily data dump folder
 
-gsutil -m cp -r "$data_dump_path$data_dump_today_date" gs://santander_inbox/amazing_leads
+# gsutil -m cp -r "$data_dump_path$data_dump_today_date" gs://santander_inbox/amazing_leads
 
 echo "$(date +"%m-%d-%Y %H:%M:%S"): #####" >> $REC_LOG_FILE
 
